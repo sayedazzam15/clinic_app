@@ -30,6 +30,7 @@
             @endforeach
         </tbody>
     </table>
+    {{ $majors->links() }}
 @endsection
 @section('js')
     <script>

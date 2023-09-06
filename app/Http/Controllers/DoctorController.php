@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Doctor;
 use App\Models\Major;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,7 +16,25 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors = Doctor::get();
+        // get doctors for major name Prof
+        // inner join
+        // first method
+        // $doctors = Doctor::select('doctors.*', 'majors.title as major_name')
+        //     ->join('majors', 'doctors.major_id', '=', 'majors.id')
+        //     ->where('majors.title', 'Prof.')
+        //     ->get();
+
+        // second method
+
+        $doctors = Doctor::whereHas('major', function ($q) {
+            $q->where('title', 'Prof.');
+        })->get();
+        $major = Major::whereHas('doctors', function ($q) {
+            $q->whereHas('rates', function ($query) {
+                $query->select('doctor_id')->groupBy('doctor_id')->havingRaw('AVG(rate) > 3');
+            });
+        })->get();
+        dd($major);
         return view('doctor.index', compact('doctors'));
     }
 
@@ -24,6 +43,14 @@ class DoctorController extends Controller
      */
     public function create()
     {
+        // pagination
+        // laravel debug bar
+        // collection
+        // lazy loading and eager loading
+        // many to many relation
+        // authentication
+        // middleware
+        // authorization
         $majors = Major::get();
         return view('doctor.create', compact('majors'));
     }

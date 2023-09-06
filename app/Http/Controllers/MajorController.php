@@ -10,7 +10,18 @@ class MajorController extends Controller
     //
     function index()
     {
-        $majors = Major::get();
+        // $majors = Major::select('id', 'title')->paginate(5);
+        // $majors = $majors->map(function ($major) use ($total) {
+        //     $total = 10;
+        // });
+        // $majors = $majors->map(fn ($major) => $total = 10);
+        // dd($total);
+        // dd($majors->except(['title']));
+        // $filtered_majors =  $majors->filter(fn ($major) => $major->title == 'Prof.');
+
+
+        // $sum = array_sum($array);
+        // $majors->where('id', '>', 2);
         return view('major.index', compact('majors'));
     }
     function destroy($id)

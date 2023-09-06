@@ -6,8 +6,9 @@
             <th>id</th>
             <th>name</th>
             <th>city</th>
-            {{-- <th>email</th> --}}
+            <th>email</th>
             <th>image</th>
+            <th>major name</th>
             <th>created_at</th>
             <th>actions</th>
         </thead>
@@ -17,8 +18,9 @@
                     <td>{{ $doctor->id }}</td>
                     <td>{{ $doctor->name }}</td>
                     <td>{{ $doctor->city }}</td>
-                    {{-- <td>{{ $doctor->email }}</td> --}}
+                    <td>{{ $doctor->email }}</td>
                     <td><img src="{{ $doctor->image }}" width="40"></td>
+                    <td>{{ $doctor->major_name }}</td>
                     <td>{{ $doctor->created_at }}</td>
                     <td class="d-flex">
                         <form action="{{ route('doctor.destroy', $doctor->id) }}" method="post">

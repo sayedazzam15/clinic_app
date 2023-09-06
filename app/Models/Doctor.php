@@ -9,8 +9,13 @@ class Doctor extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'city', 'email', 'password', 'image', 'major_id'];
+    // protected $with = ['major'];
     function major()
     {
         return $this->belongsTo(Major::class);
+    }
+    function rates()
+    {
+        return $this->hasMany(Rate::class);
     }
 }
